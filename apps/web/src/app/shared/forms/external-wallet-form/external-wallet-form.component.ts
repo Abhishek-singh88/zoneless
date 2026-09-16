@@ -14,7 +14,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { ExternalWallet } from '@zoneless/shared-types';
 
-import { TestModeBannerComponent } from '../../ui';
+import { TestModeBannerComponent, WalletGuideComponent } from '../../ui';
 import { ConfigService } from '../../../data';
 
 import {
@@ -36,7 +36,7 @@ export interface ExternalWalletFormData {
 @Component({
   selector: 'app-external-wallet-form',
   standalone: true,
-  imports: [FormsModule, TestModeBannerComponent],
+  imports: [FormsModule, TestModeBannerComponent, WalletGuideComponent],
   templateUrl: './external-wallet-form.component.html',
   styleUrls: ['./external-wallet-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,7 +56,6 @@ export class ExternalWalletFormComponent implements OnInit, OnChanges {
   walletAddressError: WritableSignal<string> = signal('');
   validationStatus: WritableSignal<'none' | 'valid' | 'invalid'> =
     signal('none');
-  showWalletGuide: WritableSignal<boolean> = signal(false);
 
   readonly network = SOLANA_NETWORK;
   readonly currency = SOLANA_CURRENCY;
@@ -137,10 +136,6 @@ export class ExternalWalletFormComponent implements OnInit, OnChanges {
     this.walletAddress.set(TEST_WALLET_DATA.walletAddress);
     this.ValidateWalletAddress();
     this.EmitFormChange();
-  }
-
-  ToggleWalletGuide(): void {
-    this.showWalletGuide.set(!this.showWalletGuide());
   }
 
   private EmitFormChange(): void {

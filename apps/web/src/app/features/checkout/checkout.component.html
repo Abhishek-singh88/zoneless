@@ -439,7 +439,14 @@
         </div>
       </div>
 
-      @if (CollectionOptions().allowPromotionCodes) {
+      @if (NeedsWalletSetup()) {
+      <div class="form-section">
+        <app-wallet-guide
+          [expanded]="true"
+          title="Setup a wallet to pay"
+        ></app-wallet-guide>
+      </div>
+      } @if (CollectionOptions().allowPromotionCodes) {
       <label class="checkout-field">
         <span class="checkout-field-label">Promotion code</span>
         <input

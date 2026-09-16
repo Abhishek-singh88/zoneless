@@ -20,7 +20,11 @@ import {
   CheckoutSessionService,
 } from '../../data/services/checkout-session.service';
 import { ConfigService } from '../../data/services/config.service';
-import { LoaderComponent, PageLoaderComponent } from '../../shared';
+import {
+  LoaderComponent,
+  PageLoaderComponent,
+  WalletGuideComponent,
+} from '../../shared';
 import { ISO_CODES } from '../../utils';
 import {
   CheckoutSession,
@@ -109,7 +113,12 @@ function HasAddressDetails(form: AddressFormValue): boolean {
 
 @Component({
   selector: 'app-checkout',
-  imports: [FormsModule, PageLoaderComponent, LoaderComponent],
+  imports: [
+    FormsModule,
+    PageLoaderComponent,
+    LoaderComponent,
+    WalletGuideComponent,
+  ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -293,6 +302,14 @@ export class CheckoutComponent implements OnInit {
       ((!this.solanaWalletService.HasWallet() &&
         !this.solanaWalletService.SupportsMobileWalletAdapter()) ||
         this.mobileWalletHandoffRequested())
+    );
+  }
+
+  NeedsWalletSetup(): boolean {
+    if (this.IsSimulatedSettlement()) return false;
+    if (typeof navigator === 'undefined') return false;
+    return (
+      !this.solanaWalletService.HasWallet() && !this.NeedsMobileWalletHandoff()
     );
   }
 

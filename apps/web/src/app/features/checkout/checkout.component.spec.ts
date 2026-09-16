@@ -142,6 +142,26 @@ describe('CheckoutComponent mobile wallet handoff', () => {
     expect(component.NeedsMobileWalletHandoff()).toBe(false);
   });
 
+  it('shows wallet setup guidance on desktop when there is no wallet', () => {
+    jest
+      .spyOn(navigator, 'userAgent', 'get')
+      .mockReturnValue('Mozilla/5.0 (Macintosh; Intel Mac OS X) Chrome/140');
+    walletService.HasWallet.mockReturnValue(false);
+    configService.IsSimulatedSettlement.mockReturnValue(false);
+
+    expect(component.NeedsWalletSetup()).toBe(true);
+  });
+
+  it('does not show wallet setup guidance if wallet exists', () => {
+    jest
+      .spyOn(navigator, 'userAgent', 'get')
+      .mockReturnValue('Mozilla/5.0 (Macintosh; Intel Mac OS X) Chrome/140');
+    walletService.HasWallet.mockReturnValue(true);
+    configService.IsSimulatedSettlement.mockReturnValue(false);
+
+    expect(component.NeedsWalletSetup()).toBe(false);
+  });
+
   it('authorizes, prepares, and signs in one mobile wallet session', async () => {
     walletService.HasWallet.mockReturnValue(false);
     walletService.SupportsMobileWalletAdapter.mockReturnValue(true);

@@ -15,3 +15,4 @@ export * from './modal/modal.component';
 export * from './line-chart/line-chart.component';
 export * from './date-range-picker/date-range-picker.component';
 export * from './metric-chart-card/metric-chart-card.component';
+export * from './wallet-guide/wallet-guide.component';

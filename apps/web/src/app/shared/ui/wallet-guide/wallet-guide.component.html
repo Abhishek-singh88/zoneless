@@ -67,11 +67,19 @@
     <div class="guide-step">
       <div class="step-number">3</div>
       <div class="step-content">
+        @if (mode === 'connect') {
         <div class="step-title">Copy your address</div>
         <div class="step-description">
           Click your wallet name at the top to copy your Solana address, then
           connect it or paste it into the form.
         </div>
+        } @else {
+        <div class="step-title">Return here and connect</div>
+        <div class="step-description">
+          Once your wallet is set up, return to this page and click Pay to
+          connect.
+        </div>
+        }
       </div>
     </div>
   </div>

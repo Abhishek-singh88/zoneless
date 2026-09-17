@@ -15,6 +15,7 @@ import {
 })
 export class WalletGuideComponent {
   @Input() title = "Don't have a wallet yet?";
+  @Input() mode: 'connect' | 'checkout' = 'connect';
 
   // We use a setter to initialize the signal from the input
   @Input() set expanded(value: boolean) {
